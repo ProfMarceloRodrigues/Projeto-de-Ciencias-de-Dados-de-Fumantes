@@ -1,0 +1,62 @@
+# Importando as bibliotecas
+import polars as pl
+
+# Ler  base  de  dados 
+tabela =pl.read_csv("tip.csv")
+display(tabela)
+
+tabela = tabela.drop_nulls()
+
+display(tabela.schema)
+
+display(tabela.shape)
+
+display(tabela.null_count()) 
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.boxplot(x="sex", y="size", data=tabela, palette="pastel")  # muda a paleta de cores
+plt.title("Distribuição do tamanho por sexo")                  # adiciona título
+plt.xlabel("Sexo")                                              # opcional: renomeia eixo X
+plt.ylabel("Tamanho")                                           # opcional: renomeia eixo Y
+plt.show()
+
+
+
+
+sns.set_style("whitegrid")
+
+sns.scatterplot(x="time", y="total_bill", hue="sex", data=tabela, palette="Set2")
+
+plt.title("Valor da conta por período do dia", fontsize=14, fontweight="bold")
+plt.xlabel("Período (Almoço ou Jantar)", fontsize=12)
+plt.ylabel("Valor total da conta (R$)", fontsize=12)
+
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.show()
+
+# Estilo geral do gráfico
+sns.set(style="whitegrid")
+
+# Paleta de cores mais vibrante e acessível
+cores = sns.color_palette("Set2")
+
+# Gráfico boxplot aprimorado
+plt.figure(figsize=(10, 6))
+sns.boxplot(x="day", y="total_bill", data=tabela, palette=cores, linewidth=1.5)
+
+# Título e rótulos com fonte maior e negrito
+plt.title(" Distribuição de cigarros por dia da semana", fontsize=16, fontweight='bold')
+plt.xlabel("Dia da semana", fontsize=14)
+plt.ylabel("Valor do  cigarro (R$)", fontsize=14)
+
+# Melhorar legibilidade dos rótulos do eixo X
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+# Exibir o gráfico
+plt.tight_layout()
+plt.show()
+
